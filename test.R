@@ -9,7 +9,6 @@ tst = bref_daily_batter('2025-03-01', as.character(Sys.Date()))
 colnames(tst)
 unique(tst$Team)
 
-# get stats for red sox
 
 
 playerid_lookup(last_name = "Devers")

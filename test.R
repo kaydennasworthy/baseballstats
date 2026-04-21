@@ -1,5 +1,6 @@
 library(baseballr) # install.packages('baseballr')
 library(tidyverse)
+library(plotly)
 
 # get current redsox roster
 
@@ -9,6 +10,13 @@ tst = bref_daily_batter('2025-03-01', as.character(Sys.Date()))
 colnames(tst)
 unique(tst$Team)
 
+#filter for team BOSTON
+boston_batters = tst %>% 
+  filter(Team == "Boston")
+
+a = ggplot(tst, aes(x = SO/PA, y = BA))+
+  geom_point()
+a
 
 
 playerid_lookup(last_name = "Devers")

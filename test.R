@@ -3,12 +3,14 @@ library(tidyverse)
 
 # get current redsox roster
 
-bref_daily_batter('2023-02-24', as.character(Sys.Date()))
+bref_daily_batter('2026-02-24', as.character(Sys.Date()))
 
-tst = bref_daily_batter('2022-08-01', '2022-08-31')
+tst = bref_daily_batter('2025-03-01', as.character(Sys.Date()))
+colnames(tst)
+unique(tst$Team)
 
-baseballr::mlb_player_game_stats(person_id = "Devers")
-?mlb_player_game_stats
+# get stats for red sox
+
 
 playerid_lookup(last_name = "Devers")
 

@@ -1,0 +1,54 @@
+---
+title: "test_quarto_introbaseball"
+format: html
+editor: visual
+---
+
+## Loading baseball stats into R
+
+One option is to use the pre-built *baseballr* package (<https://doi.org/10.32614/CRAN.package.baseballr>)
+
+```{r, warning = F, message = F}
+#install.packages(baseballr)
+library(baseballr)
+library(tidyverse)
+```
+
+Then for example, pull some stats for the Boston Red Sox this season
+
+```{r}
+most_recent_mlb_season()
+BOS = baseballr::bref_team_results("BOS", most_recent_mlb_season())
+head(BOS)
+
+batters_26 = baseballr::bref_daily_batter(t1= paste0(most_recent_mlb_season(),"-01-01"), t2=paste0(most_recent_mlb_season(), "-", format(Sys.Date(), "%m-%d")))
+
+pitchers_26 = baseballr::bref_daily_pitcher(t1= paste0(most_recent_mlb_season(),"-01-01"), t2=paste0(most_recent_mlb_season(), "-", format(Sys.Date(), "%m-%d")))
+
+BOS_batters_26 = batters_26 %>%
+  filter(Team == "Boston")
+
+BOS_pitchers_26 = pitchers_26 %>%
+  filter(Team == "Boston")
+
+head(BOS_batters_26)
+summary(BOS_batters_26)
+head(BOS_pitchers_26)
+summary(BOS_pitchers_26)
+```
+
+Now can plot some summary plots:
+
+Batting average by plate appearance
+
+```{r}
+ggplot(data = batters_26, aes(x = PA, y = BA))+
+  geom_point()
+```
+
+Histogram of Batting Averages for the year
+
+```{r}
+ggplot(data = batters_26, aes(x = BA))+
+  geom_histogram()
+```

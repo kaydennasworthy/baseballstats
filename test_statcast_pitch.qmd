@@ -1,0 +1,31 @@
+---
+title: "Statcast pitch intro"
+format: html
+editor: visual
+---
+
+## Load packages
+
+```{r, message=F, warning=F}
+# You can install using the pacman package using the following code:
+#if (!requireNamespace('pacman', quietly = TRUE)){
+#  install.packages('pacman')
+#}
+#pacman::p_load_current_gh("BillPetti/baseballr")
+library(dplyr)
+library(ggplot2)
+```
+
+Find Garrett Crochet's MLB ID and load Statcast data
+
+```{r}
+crochet_id <- baseballr::playerid_lookup(last_name = "Crochet", first_name = "Garrett") %>% 
+  dplyr::pull(mlbam_id)
+
+crochet_data <- baseballr::statcast_search(
+  start_date = paste0(most_recent_mlb_season(), "-01-01"),
+  end_date   = Sys.Date(),
+  pitcherid  = crochet_id,
+  playerid = crochet_id
+)
+```
